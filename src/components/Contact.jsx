@@ -1,15 +1,20 @@
 import css from './contacts.module.css';
-export function ContactList(props) {
+import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/contactslice';
+export function ContactList({ allContacts }) {
+  const dispatch = useDispatch();
+
   return (
     <div>
       <ul>
-        {props.allContacts.map(i => (
-          <li className={css.item} key={i.name}>
+        {allContacts.map(i => (
+          <li className={css.item} key={nanoid(4)}>
             {i.name}: {i.number}
             <button
               className={css.btn}
               type="button"
-              onClick={() => props.delete(i.name)}
+              onClick={() => dispatch(deleteContact(i.id))}
             >
               Delete
             </button>
